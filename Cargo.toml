@@ -1,0 +1,17 @@
+[package]
+name = "rustberry"
+version = "0.1.0"
+authors = ["Patrik Cyvoct <patrik@ptrk.io>"]
+
+[profile.dev]
+panic = "abort"
+debug = true
+
+[profile.test]
+debug = true
+
+[profile.release]
+panic = "abort"
+
+[dependencies]
+volatile = "0.2.3"
