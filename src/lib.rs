@@ -13,6 +13,11 @@
 #![no_std]
 
 extern crate volatile;
+extern crate spin;
+#[macro_use]
+extern crate once;
+#[macro_use]
+extern crate lazy_static;
 
 pub mod io;
 

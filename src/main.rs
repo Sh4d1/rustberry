@@ -14,13 +14,14 @@
 
 global_asm!(include_str!("asm/init.S"));
 
+#[macro_use]
 extern crate rustberry;
 extern crate volatile;
 
 #[no_mangle]
 pub extern "C" fn main() {
-    let mut mu = rustberry::io::mini_uart::MiniUart::new();
-    mu.write_byte(65);
+    rustberry::io::console::CONSOLE.lock().init();
+    kprintln!("{}", "Heeeeey");
     loop {}
 }
 
