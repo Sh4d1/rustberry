@@ -21,8 +21,13 @@ extern crate volatile;
 #[no_mangle]
 pub extern "C" fn main() {
     rustberry::io::console::CONSOLE.lock().init();
-    kprintln!("{}", "Heeeeey");
-    loop {}
+    for v in rustberry::memory::atags::Atags::get() {
+        kprintln!("{:?}", v);
+    }
+    loop {
+        let c = rustberry::io::console::CONSOLE.lock().read_byte();
+        kprint!("{}", c as char);
+    }
 }
 
 #[lang = "eh_personality"]
@@ -32,6 +37,7 @@ use core::panic::PanicInfo;
 
 #[panic_implementation]
 #[no_mangle]
-pub extern "C" fn panic(_info: &PanicInfo) -> ! {
+pub extern "C" fn panic(info: &PanicInfo) -> ! {
+    kprintln!("{}", info);
     loop {}
 }

@@ -20,4 +20,4 @@ extern crate once;
 extern crate lazy_static;
 
 pub mod io;
-
+pub mod memory;

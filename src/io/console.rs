@@ -19,7 +19,7 @@ impl Console {
         self.mu = Some(mini_uart::MiniUart::new());
     }
 
-    // Writes the byte `byte` to the MiniUart
+    /// Writes the byte `byte` to the MiniUart
     pub fn write_byte(&mut self, byte: u8) {
         match &mut self.mu {
             Some(mu) => mu.write_byte(byte),
@@ -27,7 +27,7 @@ impl Console {
         }
     }
 
-    // Writes the string `string` to the MiniUart
+    /// Writes the string `string` to the MiniUart
     pub fn write_string(&mut self, string: &str) {
         for byte in string.bytes() {
             match byte {
@@ -36,6 +36,14 @@ impl Console {
                 // if not printable
                 _ => self.write_byte(0xfe),
             }
+        }
+    }
+
+    /// Reads a byte fron the MiniUart and returns it
+    pub fn read_byte(&mut self) -> u8 {
+        match &mut self.mu {
+            Some(mu) => return mu.read_byte(),
+            None => panic!("Console is not initialized"),
         }
     }
 }

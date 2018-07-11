@@ -64,4 +64,14 @@ impl MiniUart {
         }
         self.registers.IO.write(byte as u32);
     }
+
+    /// Reads a byte from the serial port and returns it
+    pub fn read_byte(&mut self) -> u8 {
+        loop {
+            if self.registers.LSR.read() & 0x01 != 0 {
+                break;
+            }
+        }
+        (self.registers.IO.read() & 0xFF) as u8
+    }
 }
