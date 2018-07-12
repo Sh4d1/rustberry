@@ -1,5 +1,6 @@
 # Rustberry OS
 This is a WIP kernel for RaspberryPi 3 written in Rust.
+Some code is taken from this [Stanford class](https://web.stanford.edu/class/cs140e). 
 
 ## Requirements
 You will nedd a nightly Rust installation. The fastest way is to use [rustup](https://rustup.rs/).
