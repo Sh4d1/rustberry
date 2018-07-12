@@ -12,11 +12,20 @@ version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
+name = "register"
+version = "0.1.0"
+source = "git+https://github.com/andre-richter/register-rs.git#a2ff4e72a2aae96f7626f1e731c77e679ae8d719"
+dependencies = [
+ "tock-regs 0.1.0 (git+https://github.com/tock/tock.git?rev=8b64ec2)",
+]
+
+[[package]]
 name = "rustberry"
 version = "0.1.0"
 dependencies = [
  "lazy_static 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "once 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "register 0.1.0 (git+https://github.com/andre-richter/register-rs.git)",
  "spin 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "volatile 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -27,6 +36,11 @@ version = "0.4.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
+name = "tock-regs"
+version = "0.1.0"
+source = "git+https://github.com/tock/tock.git?rev=8b64ec2#8b64ec2773446a5abaa82fe8212ca12b4e84990c"
+
+[[package]]
 name = "volatile"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -34,5 +48,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [metadata]
 "checksum lazy_static 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)" = "e6412c5e2ad9584b0b8e979393122026cdd6d2a80b933f890dcd694ddbe73739"
 "checksum once 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)" = "931fb7a4cf34610cf6cbe58d52a8ca5ef4c726d4e2e178abd0dc13a6551c6d73"
+"checksum register 0.1.0 (git+https://github.com/andre-richter/register-rs.git)" = "<none>"
 "checksum spin 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)" = "14db77c5b914df6d6173dda9a3b3f5937bd802934fa5edaf934df06a3491e56f"
+"checksum tock-regs 0.1.0 (git+https://github.com/tock/tock.git?rev=8b64ec2)" = "<none>"
 "checksum volatile 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)" = "54d4343a2df2d65144a874f95950754ee7b7e8594f6027aae8c7d0f4858a3fe8"

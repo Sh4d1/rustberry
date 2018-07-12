@@ -17,7 +17,10 @@ BUILD_DIR := build
 RUST_LIB := $(BUILD_DIR)/$(RUST_BINARY)
 KERNEL = $(BUILD_DIR)/kernel8.img
 
-.PHONY: all clean 
+TEST_KERNEL_SRC = $(basename $(wildcard src/bin/*.rs))
+TEST_KERNEL = $(TEST_KERNEL_SRC:src/bin/%=%)
+
+.PHONY: all clean test
 
 all: $(KERNEL)
 
@@ -47,6 +50,13 @@ $(KERNEL): $(RUST_LIB) | $(BUILD_DIR)
 
 run: $(KERNEL)
 	qemu-system-aarch64 -kernel $(KERNEL) -M raspi3 -serial null -serial mon:stdio
+
+test: $(RUST_DEBUG_LIB) | $(BUILD_DIR) 
+	for test in $(TEST_KERNEL) ; do \
+		cp $(RUST_BUILD_DIR)/debug/$$test $(BUILD_DIR)/$$test ; \
+		$(OBJCOPY) $(OBJCOPY_PARAMS) $(BUILD_DIR)/$$test $(BUILD_DIR)/$$test.img ; \
+	done
+
 
 clean:
 	$(CARGO) clean
