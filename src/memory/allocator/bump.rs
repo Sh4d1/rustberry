@@ -1,7 +1,6 @@
-use alloc::allocator::{Alloc, AllocErr, GlobalAlloc, Layout};
+use alloc::allocator::Layout;
 
 use super::*;
-use core::ptr::NonNull;
 
 #[derive(Debug)]
 pub struct Allocator {

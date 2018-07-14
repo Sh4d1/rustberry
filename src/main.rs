@@ -22,35 +22,15 @@ extern crate std;
 
 #[macro_use]
 extern crate rustberry;
-extern crate volatile;
-#[macro_use]
 extern crate alloc;
+extern crate volatile;
 
 #[cfg(not(test))]
 #[no_mangle]
 pub extern "C" fn main() {
     rustberry::ALLOCATOR.initialize();
     rustberry::io::console::CONSOLE.lock().init();
-    for v in rustberry::memory::atags::Atags::get() {
-        kprintln!("{:?}", v);
-    }
-    use alloc::boxed::Box;
-
-    let mut heap_test = Box::new(42);
-    *heap_test -= 15;
-    let heap_test2 = Box::new("hello");
-    kprintln!("{:?} {:?}", heap_test, heap_test2);
-    use rustberry::arch::registers::current_el::*;;
-    unsafe {
-        asm!("brk 3" :::: "volatile");
-    }
-    unsafe {
-        asm!("svc 3" :::: "volatile");
-    }
-    loop {
-        let c = rustberry::io::console::CONSOLE.lock().read_byte();
-        kprint!("{}", c as char);
-    }
+    rustberry::SCHEDULER.start();
 }
 
 #[cfg(not(test))]

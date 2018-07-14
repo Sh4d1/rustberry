@@ -2,9 +2,8 @@
 #[path = "bump.rs"]
 mod imp;
 
-use alloc::allocator::{Alloc, AllocErr, Layout, GlobalAlloc};
+use alloc::allocator::{Layout, GlobalAlloc};
 use spin::Mutex;
-use core::ptr::NonNull;
 
 #[derive(Debug)]
 pub struct Allocator(Mutex<Option<imp::Allocator>>);
@@ -45,12 +44,10 @@ use memory::atags::{Atags,Atag};
 fn memory_map() -> Option<(usize, usize)> {
     let binary_end = unsafe { (&_end as *const u8) as u32  };
     let mut size = 0;
-    let mut start = 0;
     for v in Atags::get() {
         match v {
             Atag::Mem(mem) => {
                 size = mem.size;
-                start = mem.start;
             },
             _ => {},
         }
@@ -69,11 +66,6 @@ pub fn align_down(addr: usize, align: usize) -> usize {
 pub fn align_up(addr: usize, align: usize) -> usize {
     align_down(addr + align - 1, align)
 }
-
-
-
-
-
 
 
 #[cfg(test)]

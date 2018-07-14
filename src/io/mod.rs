@@ -1,10 +1,14 @@
+#[macro_use]
+pub mod console;
+
 pub mod gpio;
 
 pub mod mini_uart;
 
-#[macro_use]
-pub mod console;
+//pub mod timer;
+
+pub mod generic_timer;
 
 /// Base address of IO devices
-const IO_BASE: usize = 0x3F000000;
+pub const IO_BASE: usize = 0x3F000000;
 

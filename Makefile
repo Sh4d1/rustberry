@@ -20,7 +20,7 @@ KERNEL = $(BUILD_DIR)/kernel8.img
 TEST_KERNEL_SRC = $(basename $(wildcard src/bin/*.rs))
 TEST_KERNEL = $(TEST_KERNEL_SRC:src/bin/%=%)
 
-.PHONY: all clean test
+.PHONY: all clean test $(RUST_DEBUG_LIB) 
 
 all: $(KERNEL)
 
@@ -44,7 +44,7 @@ $(BUILD_DIR):
 	@mkdir -p $@
 
 
-$(KERNEL): $(RUST_LIB) | $(BUILD_DIR)
+$(KERNEL): $(RUST_DEBUG_LIB) | $(BUILD_DIR)
 	@echo "+ Building $@"
 	$(OBJCOPY) $(OBJCOPY_PARAMS) $< $@
 

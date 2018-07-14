@@ -2,9 +2,9 @@
 #[derive(Default, Debug, Copy, Clone)]
 pub struct TrapFrame {
     pub elr: u64,
-    spsr: u64,
-    sp: u64,
-    tpidr: u64,
+    pub spsr: u64,
+    pub sp: u64,
+    pub tpidr: u64,
     q0: u128,
     q1: u128,
     q2: u128,
@@ -67,6 +67,6 @@ pub struct TrapFrame {
     x28: u64,
     x29: u64,
     _reserved: u64,
-    x30: u64,
+    pub x30: u64,
     x0: u64,
 }

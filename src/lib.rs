@@ -35,3 +35,9 @@ use memory::allocator::Allocator;
 #[global_allocator]
 pub static ALLOCATOR: Allocator = Allocator::uninitialized();
 
+use arch::context::GlobalScheduler;
+pub static SCHEDULER: GlobalScheduler = GlobalScheduler::uninitialized();
+
+use io::generic_timer::GenericTimer;
+pub static TIMER: Option<GenericTimer> = None;
+
