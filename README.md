@@ -7,7 +7,7 @@ You will nedd a nightly Rust installation. The fastest way is to use [rustup](ht
 You will also need some tools, you can install the whole toolchain with:
 ```shell
 $ curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly
-$ rustup component add rust-src llvm-tools
+$ rustup component add rust-src llvm-tools-preview
 $ cargo install cargo-xbuild cargo-binutils
 ```
 
