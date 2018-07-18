@@ -28,7 +28,7 @@ extern crate volatile;
 #[cfg(not(test))]
 #[no_mangle]
 pub extern "C" fn main() {
-    rustberry::ALLOCATOR.initialize();
+    rustberry::memory::allocator::init_heap();
     rustberry::io::console::CONSOLE.lock().init();
     rustberry::SCHEDULER.start();
 }

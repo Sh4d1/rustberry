@@ -10,6 +10,7 @@
 #![feature(ptr_internals)]
 #![feature(global_asm)]
 #![feature(alloc, allocator_api)]
+#![feature(alloc_error_handler)]
 
 #![no_std]
 
@@ -19,7 +20,7 @@ extern crate spin;
 extern crate once;
 #[macro_use]
 extern crate lazy_static;
-
+extern crate linked_list_allocator;
 extern crate alloc;
 
 #[macro_use]
@@ -30,10 +31,11 @@ pub mod io;
 pub mod memory;
 pub mod arch;
 
-use memory::allocator::Allocator;
+use linked_list_allocator::LockedHeap;
+
 #[cfg(not(test))]
 #[global_allocator]
-pub static ALLOCATOR: Allocator = Allocator::uninitialized();
+pub static HEAP_ALLOCATOR: LockedHeap = LockedHeap::empty();
 
 use arch::context::GlobalScheduler;
 pub static SCHEDULER: GlobalScheduler = GlobalScheduler::uninitialized();

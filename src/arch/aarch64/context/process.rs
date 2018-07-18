@@ -1,13 +1,15 @@
 use super::stack::Stack;
 use alloc::boxed::Box;
 use arch::exceptions::TrapFrame;
+use core::mem::replace;
 
 pub type Id = u64;
 
-#[derive(PartialEq)]
+pub type EventPollFn = Box<FnMut(&mut Process) -> bool + Send>;
+
 pub enum State {
     Ready,
-    Waiting,
+    Waiting(EventPollFn),
     Running,
 }
 
@@ -18,7 +20,7 @@ impl fmt::Debug for State {
         match *self {
             State::Ready => write!(f, "State::Ready"),
             State::Running => write!(f, "State::Running"),
-            State::Waiting => write!(f, "State::Waiting"),
+            State::Waiting(_) => write!(f, "State::Waiting"),
         }
     }
 }
@@ -45,6 +47,19 @@ impl Process {
     }
 
     pub fn is_ready(&mut self) -> bool {
-        self.state == State::Ready
+        true
+        //        let mut mut_state = replace(&mut self.state, State::Ready);
+        //        match &mut mut_state {
+        //            State::Ready => true,
+        //            State::Waiting(ref mut func) => {
+        //                if !func(self) {
+        //                    self.state = mut_state;
+        //                    false
+        //                } else {
+        //                    true
+        //                }
+        //            }
+        //            _ => false,
+        //        }
     }
 }

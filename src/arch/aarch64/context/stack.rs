@@ -1,8 +1,8 @@
-use alloc::allocator::{GlobalAlloc, Layout};
+use alloc::alloc::{GlobalAlloc, Layout};
 use core::ptr::Unique;
 use memory::virtual_mem::PhysicalAddr;
-use ALLOCATOR;
-
+//use ALLOCATOR;
+use HEAP_ALLOCATOR;
 pub struct Stack {
     ptr: Unique<[u8; Stack::SIZE]>,
 }
@@ -17,7 +17,7 @@ impl Stack {
 
     pub fn new() -> Option<Stack> {
         let raw_ptr = unsafe {
-            let raw_ptr: *mut u8 = (&ALLOCATOR).alloc(Stack::layout());
+            let raw_ptr: *mut u8 = HEAP_ALLOCATOR.alloc(Stack::layout());
             if raw_ptr == (0 as *mut u8) {
                 return None;
             }
@@ -43,7 +43,7 @@ impl Stack {
 
 impl Drop for Stack {
     fn drop(&mut self) {
-        unsafe { (&ALLOCATOR).dealloc(self.as_mut_ptr(), Self::layout()) }
+        unsafe { HEAP_ALLOCATOR.dealloc(self.as_mut_ptr(), Self::layout()) }
     }
 }
 

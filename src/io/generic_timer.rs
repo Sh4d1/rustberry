@@ -36,11 +36,13 @@ impl GenericTimer {
     }
 
     pub fn tick_in(&mut self, us: u32) {
-        CNTV_TVAL_EL0.set(1 / (us / 1000000));
+        let cntfrq = CNTFRQ_EL0.get();
+        CNTV_TVAL_EL0.set(((cntfrq as f64) * (us as f64) / 1000000.0) as u32);
     }
 
     pub fn init(&mut self) {
         let cntfrq = CNTFRQ_EL0.get();
+
         CNTV_TVAL_EL0.set(cntfrq);
 
         self.registers.CORE_TIMER_IRQCNTL[0].write(0x08);
@@ -50,4 +52,8 @@ impl GenericTimer {
 
 pub fn ack() {
     GenericTimer::new().ack();
+}
+
+pub fn tick_in(us: u32) {
+    GenericTimer::new().tick_in(us);
 }
